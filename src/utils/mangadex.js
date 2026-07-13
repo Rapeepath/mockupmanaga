@@ -81,100 +81,20 @@ const getCoverUrl = (mangaId, relationships) => {
 };
 
 export const fetchRecommendations = async () => {
-  try {
-    // Attempt to fetch from MangaDex
-    const idsString = MOCK_MANGAS.map(m => m.id);
-    const queryParams = idsString.map(id => `ids[]=${id}`).join('&');
-    const response = await fetch(`${API_BASE}/manga?${queryParams}&includes[]=cover_art`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    if (!response.ok) throw new Error('API request failed');
-    
-    const result = await response.json();
-    return result.data.map(manga => {
-      const titleObj = manga.attributes.title;
-      const title = titleObj.en || titleObj['ja-ro'] || Object.values(titleObj)[0];
-      const descObj = manga.attributes.description;
-      const description = descObj.en || Object.values(descObj)[0] || 'No description available.';
-      const status = manga.attributes.status;
-      const tags = manga.attributes.tags.map(t => t.attributes.name.en).slice(0, 5);
-      const coverUrl = getCoverUrl(manga.id, manga.relationships);
-      
-      // Try to get Japanese title for styling
-      const altTitles = manga.attributes.altTitles || [];
-      const jaTitleObj = altTitles.find(t => t.ja || t['ja-ro']);
-      const japaneseTitle = jaTitleObj ? (jaTitleObj.ja || jaTitleObj['ja-ro']) : (MOCK_MANGAS.find(m => m.id === manga.id)?.japaneseTitle || '');
-
-      return {
-        id: manga.id,
-        title,
-        japaneseTitle,
-        description,
-        coverUrl,
-        status,
-        tags
-      };
-    });
-  } catch (error) {
-    console.warn('MangaDex API failed, loading mock recommendations:', error);
-    return MOCK_MANGAS;
-  }
+  return MOCK_MANGAS;
 };
 
 export const searchManga = async (query) => {
   if (!query || query.trim() === '') {
-    return fetchRecommendations();
-  }
-
-  // Force mock response for query "s" to show working covers
-  if (query.toLowerCase() === 's') {
     return MOCK_MANGAS;
   }
 
-  try {
-    const response = await fetch(
-      `${API_BASE}/manga?title=${encodeURIComponent(query)}&limit=15&includes[]=cover_art&contentRating[]=safe&contentRating[]=suggestive`,
-      { method: 'GET' }
-    );
-    
-    if (!response.ok) throw new Error('API search failed');
-    
-    const result = await response.json();
-    if (result.data.length === 0) return [];
-
-    return result.data.map(manga => {
-      const titleObj = manga.attributes.title;
-      const title = titleObj.en || titleObj['ja-ro'] || Object.values(titleObj)[0];
-      const descObj = manga.attributes.description;
-      const description = descObj.en || Object.values(descObj)[0] || 'No description available.';
-      const status = manga.attributes.status;
-      const tags = manga.attributes.tags.map(t => t.attributes.name.en).slice(0, 4);
-      const coverUrl = getCoverUrl(manga.id, manga.relationships);
-      
-      const altTitles = manga.attributes.altTitles || [];
-      const jaTitleObj = altTitles.find(t => t.ja || t['ja-ro']);
-      const japaneseTitle = jaTitleObj ? (jaTitleObj.ja || jaTitleObj['ja-ro']) : '';
-
-      return {
-        id: manga.id,
-        title,
-        japaneseTitle,
-        description,
-        coverUrl,
-        status,
-        tags
-      };
-    });
-  } catch (error) {
-    console.warn('MangaDex search failed, filtering mock data:', error);
-    // Local filter on mocks
-    return MOCK_MANGAS.filter(m => 
-      m.title.toLowerCase().includes(query.toLowerCase()) || 
-      m.tags.some(t => t.toLowerCase().includes(query.toLowerCase()))
-    );
-  }
+  const lowercaseQuery = query.toLowerCase();
+  return MOCK_MANGAS.filter(m => 
+    m.title.toLowerCase().includes(lowercaseQuery) || 
+    m.japaneseTitle.toLowerCase().includes(lowercaseQuery) ||
+    m.tags.some(t => t.toLowerCase().includes(lowercaseQuery))
+  );
 };
 
 export const fetchChapters = async (mangaId) => {
