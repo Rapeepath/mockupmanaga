@@ -5,7 +5,7 @@ const API_BASE = 'https://api.mangadex.org';
 // Real MangaDex covers & details for fallback/recommended mangas
 const MOCK_MANGAS = [
   {
-    id: 'b0b721ff-c388-4486-aa0e-c2b0bb321512',
+    id: 'b0b721ff-c388-4486-aa0e-ceec0bc4d5f4',
     title: 'Frieren: Beyond Journey\'s End',
     japaneseTitle: '葬送のフリーレン',
     description: 'The adventure is over but life goes on for an elf mage who\'s just beginning to learn what life is all about. Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party. How will she come to understand what life means to the humans around her?',
@@ -14,7 +14,7 @@ const MOCK_MANGAS = [
     tags: ['Adventure', 'Drama', 'Fantasy', 'Shounen', 'Slice of Life'],
   },
   {
-    id: 'a77742b1-befd-49a4-bff5-1ad4e6b0ef7b',
+    id: 'a77742b1-8169-4f21-954f-2c0c5914ab74',
     title: 'Chainsaw Man',
     japaneseTitle: 'チェンソーマン',
     description: 'Denji is a teenage boy living with a Chainsaw Devil named Pochita. Due to the debt his father left behind, he has been living a rock-bottom life while repaying his debt by harvesting devil corpses with Pochita. One day, Denji is betrayed and killed. As his consciousness fades, he makes a contract with Pochita and gets revived as "Chainsaw Man" — a man with a devil\'s heart.',

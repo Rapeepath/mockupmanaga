@@ -331,7 +331,7 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
               }}
               onClick={() => setViewMode('translated')}
             >
-              แปลไทย (AI)
+              แปลไทย (อัตโนมัติ)
             </button>
             <button 
               style={{

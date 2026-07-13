@@ -443,7 +443,7 @@ const styles = {
   searchBarContainer: {
     padding: '16px 24px',
     marginBottom: '32px',
-    background: 'rgba(13, 17, 39, 0.5)',
+    background: 'var(--bg-card)',
   },
   searchForm: {
     display: 'flex',
@@ -464,10 +464,10 @@ const styles = {
   searchInput: {
     width: '100%',
     padding: '12px 16px 12px 48px',
-    background: 'rgba(8, 10, 26, 0.9)',
+    background: 'var(--bg-input)',
     border: '1px solid var(--border-color)',
     borderRadius: '8px',
-    color: '#fff',
+    color: 'var(--text-main)',
     fontSize: '1rem',
   },
   clearBtn: {
@@ -494,7 +494,7 @@ const styles = {
   },
   sectionTitle: {
     fontSize: '1.5rem',
-    color: '#fff',
+    color: 'var(--text-main)',
   },
   loadingContainer: {
     display: 'flex',
@@ -576,7 +576,7 @@ const styles = {
     background: 'var(--bg-card)',
     overflow: 'hidden',
     height: '100%',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
+    border: '1px solid var(--border-color)',
   },
   cardCoverWrapper: {
     position: 'relative',
@@ -626,7 +626,7 @@ const styles = {
   cardTitle: {
     fontSize: '0.95rem',
     fontWeight: '700',
-    color: '#fff',
+    color: 'var(--text-main)',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -675,18 +675,19 @@ const styles = {
     width: '100%',
     maxWidth: '1000px',
     maxHeight: '90vh',
-    background: 'rgba(10, 12, 30, 0.95)',
-    border: '1px solid rgba(157, 78, 221, 0.3)',
+    background: 'var(--bg-card)',
+    border: '1px solid var(--border-color)',
     borderRadius: '16px',
     position: 'relative',
     overflowY: 'auto',
     padding: '36px',
+    backdropFilter: 'blur(20px)',
   },
   closeModalBtn: {
     position: 'absolute',
     top: '20px',
     right: '20px',
-    background: 'rgba(255,255,255,0.05)',
+    background: 'rgba(15, 23, 42, 0.05)',
     border: 'none',
     width: '36px',
     height: '36px',
@@ -722,7 +723,7 @@ const styles = {
   },
   modalTitle: {
     fontSize: '1.8rem',
-    color: '#fff',
+    color: 'var(--text-main)',
     paddingRight: '40px',
   },
   modalJapanese: {
@@ -739,7 +740,7 @@ const styles = {
   },
   modalTagItem: {
     fontSize: '0.7rem',
-    background: 'rgba(255, 255, 255, 0.08)',
+    background: 'rgba(15, 23, 42, 0.05)',
     padding: '3px 8px',
     borderRadius: '4px',
     color: 'var(--text-muted)',
@@ -750,10 +751,10 @@ const styles = {
     lineHeight: '1.6',
     maxHeight: '120px',
     overflowY: 'auto',
-    background: 'rgba(255,255,255,0.02)',
+    background: 'rgba(15, 23, 42, 0.02)',
     padding: '12px',
     borderRadius: '6px',
-    border: '1px solid rgba(255,255,255,0.02)',
+    border: '1px solid var(--border-color)',
   },
   chapterSection: {
     marginTop: '16px',
@@ -763,8 +764,8 @@ const styles = {
   },
   chapterHeader: {
     fontSize: '1.05rem',
-    color: '#fff',
-    borderBottom: '1px solid rgba(255,255,255,0.1)',
+    color: 'var(--text-main)',
+    borderBottom: '1px solid var(--border-color)',
     paddingBottom: '8px',
   },
   chapterLoading: {
@@ -783,7 +784,7 @@ const styles = {
   chapterTableWrapper: {
     maxHeight: '300px',
     overflowY: 'auto',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
+    border: '1px solid var(--border-color)',
     borderRadius: '8px',
   },
   chapterTable: {
@@ -792,17 +793,17 @@ const styles = {
     fontSize: '0.85rem',
   },
   th: {
-    background: 'rgba(8, 10, 26, 0.9)',
+    background: 'var(--bg-input)',
     color: 'var(--text-muted)',
     textAlign: 'left',
     padding: '10px 16px',
     fontWeight: '600',
     position: 'sticky',
     top: 0,
-    borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+    borderBottom: '1px solid var(--border-color)',
   },
   tr: {
-    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+    borderBottom: '1px solid var(--border-color)',
     transition: '0.2s',
   },
   tdNum: {
@@ -812,7 +813,7 @@ const styles = {
   },
   tdTitle: {
     padding: '12px 16px',
-    color: '#fff',
+    color: 'var(--text-main)',
   },
   tdPages: {
     padding: '12px 16px',

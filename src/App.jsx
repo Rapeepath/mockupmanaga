@@ -13,7 +13,7 @@ const INITIAL_BOOKMARKS = [
     title: 'Frieren: Beyond Journey\'s End',
     japaneseTitle: '葬送のフリーレン',
     description: 'The adventure is over but life goes on for an elf mage who\'s just beginning to learn what life is all about...',
-    coverUrl: 'https://uploads.mangadex.org/covers/b0b721ff-c388-4486-aa0e-ceec0bc4d5f4/8029c04a-b5e1-4560-b633-9114f0436a51.jpg.256.jpg',
+    coverUrl: '/covers/frieren.jpg',
     status: 'ongoing',
     tags: ['Adventure', 'Drama', 'Fantasy']
   },
@@ -22,7 +22,7 @@ const INITIAL_BOOKMARKS = [
     title: 'Chainsaw Man',
     japaneseTitle: 'チェンソーマン',
     description: 'Denji is a teenage boy living with a Chainsaw Devil named Pochita. Due to the debt his father left behind...',
-    coverUrl: 'https://uploads.mangadex.org/covers/a77742b1-8169-4f21-954f-2c0c5914ab74/96924619-3738-4e12-b91c-799ff248408a.png.256.jpg',
+    coverUrl: '/covers/chainsaw.jpg',
     status: 'ongoing',
     tags: ['Action', 'Comedy', 'Drama']
   }
@@ -33,7 +33,7 @@ const INITIAL_JOBS = [
     id: 'frieren-ch-1',
     mangaId: 'b0b721ff-c388-4486-aa0e-ceec0bc4d5f4',
     mangaTitle: 'Frieren: Beyond Journey\'s End',
-    coverUrl: 'https://uploads.mangadex.org/covers/b0b721ff-c388-4486-aa0e-ceec0bc4d5f4/8029c04a-b5e1-4560-b633-9114f0436a51.jpg.256.jpg',
+    coverUrl: '/covers/frieren.jpg',
     chapter: '1',
     chapterTitle: 'The Adventure\'s End',
     pages: 18,
@@ -326,7 +326,7 @@ function App() {
     setSuggestions(prev => prev.map(s => s.id === suggestionId ? { ...s, status: 'rejected' } : s));
   };
 
-  // Gemini AI Re-translate
+  // Re-translate dialogue
   const handleAiReTranslate = (suggestionId, customPrompt) => {
     const sug = suggestions.find(s => s.id === suggestionId);
     if (!sug) return;
@@ -335,7 +335,7 @@ function App() {
     if (customPrompt && customPrompt.toLowerCase().includes('สุภาพ')) {
       reTranslatedText = sug.suggestedTranslation + 'ครับ' || sug.currentTranslation + 'ครับ';
     } else {
-      reTranslatedText = `[AI] ${sug.suggestedTranslation}`;
+      reTranslatedText = `[ปรับปรุง] ${sug.suggestedTranslation}`;
     }
 
     setCustomTranslations(prev => ({
@@ -343,9 +343,9 @@ function App() {
       [sug.bubbleId]: reTranslatedText
     }));
 
-    setSuggestions(prev => prev.map(s => s.id === suggestionId ? { ...s, status: 'rejected', comment: 'แปลใหม่ด้วย AI แล้ว' } : s));
+    setSuggestions(prev => prev.map(s => s.id === suggestionId ? { ...s, status: 'rejected', comment: 'ปรับปรุงบทแปลเรียบร้อย' } : s));
     
-    alert(`Gemini AI Re-translate สำเร็จ!\nข้อความใหม่: "${reTranslatedText}"`);
+    alert(`ปรับปรุงบทแปลภาษาไทยสำเร็จ!\nข้อความใหม่: "${reTranslatedText}"`);
   };
 
   // Reader takes up full workspace screen
@@ -456,7 +456,7 @@ function App() {
                 }}
                 onClick={() => setCurrentView('admin')}
               >
-                ⚙️ ระบบควบคุม AI Telemetry
+                ⚙️ ศูนย์ควบคุมสถานะบทแปล
               </button>
             )}
 
@@ -587,7 +587,7 @@ function App() {
             textAlign: 'center',
           } : {})
         }}>
-          <span>MangaHub AI Translation Platform Prototype</span>
+          <span>MangaHub Community Translation Platform Prototype</span>
           <span>Workspace Sandbox Connected • React 19 • MangaDex API</span>
         </div>
       </footer>
@@ -627,9 +627,11 @@ const styles = {
     position: 'sticky',
     top: 0,
     zIndex: 999,
-    background: 'rgba(6, 8, 20, 0.85)',
+    background: 'var(--bg-card)',
     borderRadius: '0',
     borderWidth: '0 0 1px 0',
+    borderColor: 'var(--border-color)',
+    borderStyle: 'solid',
   },
   headerContainer: {
     maxWidth: '1400px',
@@ -657,10 +659,10 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
-    background: 'rgba(255,255,255,0.03)',
+    background: 'var(--bg-input)',
     padding: '6px 12px',
     borderRadius: '8px',
-    border: '1px solid rgba(255,255,255,0.05)',
+    border: '1px solid var(--border-color)',
   },
   sessionDetails: {
     textAlign: 'right',
@@ -668,7 +670,7 @@ const styles = {
   username: {
     fontSize: '0.8rem',
     fontWeight: '700',
-    color: '#fff',
+    color: 'var(--text-main)',
   },
   serverMeta: {
     fontSize: '0.7rem',
@@ -694,8 +696,8 @@ const styles = {
     flex: 1,
   },
   footer: {
-    background: '#04050a',
-    borderTop: '1px solid rgba(255,255,255,0.05)',
+    background: 'var(--bg-card)',
+    borderTop: '1px solid var(--border-color)',
     padding: '20px 0',
     color: 'var(--text-muted)',
     fontSize: '0.75rem',

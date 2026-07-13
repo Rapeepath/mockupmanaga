@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 
 const PIPELINE_STEPS = [
   { id: 'downloading', label: 'ดาวน์โหลด', icon: '📥' },
-  { id: 'ocr', label: 'OCR หาคำ', icon: '🔍' },
+  { id: 'ocr', label: 'วิเคราะห์ข้อความ', icon: '🔍' },
   { id: 'cleaning', label: 'คลีนรูปภาพ', icon: '🧹' },
-  { id: 'translating', label: 'AI แปลไทย', icon: '🤖' },
+  { id: 'translating', label: 'แปลภาษาไทย', icon: '📝' },
   { id: 'typesetting', label: 'จัดเรียงคำ', icon: '✏️' }
 ];
 
@@ -35,32 +35,32 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
     }
     if (job.progress >= 20) {
       logs.push(`[ดาวน์โหลด] บันทึกรูปภาพมังงะ ${job.pages || 16} หน้าลงพื้นที่หน่วยความจำจำลองชั่วคราว`);
-      logs.push(`[ดาวน์โหลด] ดาวน์โหลดหน้าภาพเรียบร้อย กำลังส่งต่อประมวลผลโมเดล OCR`);
+      logs.push(`[ดาวน์โหลด] ดาวน์โหลดหน้าภาพเรียบร้อย กำลังส่งต่อประมวลผลวิเคราะห์ข้อความ`);
     }
     if (job.progress >= 25) {
-      logs.push(`[OCR] กำลังวิเคราะห์หาตำแหน่งกรอบคำพูดมังงะ (YOLOv8 Layout-Detector)...`);
+      logs.push(`[วิเคราะห์ข้อความ] กำลังวิเคราะห์หาตำแหน่งกรอบคำพูดมังงะ (ระบบตรวจจับ Layout)...`);
     }
     if (job.progress >= 40) {
-      logs.push(`[OCR] ตรวจพบพื้นที่ข้อความคำพูดทั้งหมด ${Math.floor((job.pages || 16) * 2.5)} บอลลูน`);
-      logs.push(`[OCR] กำลังวิเคราะห์และถอดตัวอักษรภาษาญี่ปุ่นออกจากบอลลูนคำพูด (Tesseract OCR)...`);
-      logs.push(`[OCR] ความแม่นยำในการถอดตัวอักษรญี่ปุ่น: 98.4%`);
-      logs.push(`[OCR] เสร็จสิ้นขั้นตอน OCR: สร้างตำแหน่งทับถมสี (Inpaint Mask) เรียบร้อย`);
+      logs.push(`[วิเคราะห์ข้อความ] ตรวจพบพื้นที่ข้อความคำพูดทั้งหมด ${Math.floor((job.pages || 16) * 2.5)} บอลลูน`);
+      logs.push(`[วิเคราะห์ข้อความ] กำลังวิเคราะห์และถอดตัวอักษรภาษาญี่ปุ่นออกจากบอลลูนคำพูด (สแกนข้อความ)...`);
+      logs.push(`[วิเคราะห์ข้อความ] ความแม่นยำในการถอดตัวอักษรญี่ปุ่น: 98.4%`);
+      logs.push(`[วิเคราะห์ข้อความ] เสร็จสิ้นขั้นตอนตรวจหาตัวอักษรและระบุตำแหน่งกรอบคำพูดเรียบร้อย`);
     }
     if (job.progress >= 45) {
-      logs.push(`[คลีนภาพ] กำลังเริ่มรันโมเดลลบอักษรหลังการตรวจหา (LaMa Inpainting)...`);
+      logs.push(`[คลีนภาพ] กำลังลบตัวอักษรต้นฉบับออกจากภาพมังงะ...`);
     }
     if (job.progress >= 60) {
       logs.push(`[คลีนภาพ] กำลังลบตัวอักษรญี่ปุ่นต้นฉบับและฟื้นฟูพื้นหลังของภาพมังงะ...`);
       logs.push(`[คลีนภาพ] ลบเลเยอร์ข้อความเดิมออกทั้งหมด ${Math.floor((job.pages || 16) * 2.5)} บอลลูน ได้รับภาพเปล่าเรียบร้อย`);
     }
     if (job.progress >= 65) {
-      logs.push(`[AI แปลภาษา] กำลังรันโมเดลภาษา AI แปลบทสนทนา (Gemini 1.5 Flash)...`);
-      logs.push(`[AI แปลภาษา] กำหนดบริบทเฉพาะ ชื่อตัวละคร และแนวทางการปรับสำนวน...`);
+      logs.push(`[แปลภาษา] กำลังแปลบทสนทนาภาษาญี่ปุ่นเป็นภาษาไทย...`);
+      logs.push(`[แปลภาษา] กำหนดบริบทเฉพาะ ชื่อตัวละคร และแนวทางการปรับสำนวนให้เข้ากับท้องเรื่อง...`);
     }
     if (job.progress >= 80) {
-      logs.push(`[AI แปลภาษา] กำลังประมวลผลข้อความภาษาญี่ปุ่นเป็นภาษาไทย...`);
-      logs.push(`[AI แปลภาษา] แปลบทสนทนาเสร็จสิ้น ความมั่นใจในการประมวลผล: 96.7%`);
-      logs.push(`[AI แปลภาษา] ตัวอย่างคำแปล: "何だと？！" -> "เจ้าว่ายังไงนะ?!" (ปรับสำนวนให้เข้ากับท้องเรื่องแล้ว)`);
+      logs.push(`[แปลภาษา] กำลังประมวลผลคำแปลภาษาไทย...`);
+      logs.push(`[แปลภาษา] แปลบทสนทนาเสร็จสิ้น เรียบร้อยสมบูรณ์`);
+      logs.push(`[แปลภาษา] ตัวอย่างคำแปล: "何だと？！" -> "เจ้าว่ายังไงนะ?!" (ปรับสำนวนเข้ากับท้องเรื่อง)`);
     }
     if (job.progress >= 85) {
       logs.push(`[จัดช่องไฟ] กำลังจัดเรียงบทแปลภาษาไทยลงในบอลลูนคำพูด...`);
@@ -71,7 +71,7 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
       logs.push(`[ประมวลผลไฟล์] กำลังบีบอัดไฟล์ภาพผลลัพธ์เป็นแพ็คเกจให้อ่าน...`);
     }
     if (job.progress === 100) {
-      logs.push(`[สำเร็จ] การแปลภาษา AI และรัน Pipeline ตอนนี้สำเร็จครบถ้วน!`);
+      logs.push(`[สำเร็จ] แปลภาษาไทยและจัดทำหน้ามังงะเสร็จสิ้นสมบูรณ์!`);
       logs.push(`[สำเร็จ] ขนาดไฟล์: ${(2.4 + Math.random()).toFixed(2)} MB พร้อมให้คุณเปิดอ่านแล้ว`);
     } else {
       logs.push(`[กำลังทำงาน] อยู่ระหว่างประมวลผล... ขั้นตอนปัจจุบัน: ${job.status.toUpperCase()}`);
@@ -92,7 +92,7 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
     <div className="container animate-fade-in" style={styles.container}>
       <div style={styles.header}>
         <h1 style={styles.title}>ชั้นหนังสือมังงะของฉัน</h1>
-        <p style={styles.subtitle}>จัดการรายการมังงะที่ชื่นชอบ และตรวจสอบคิวประมวลผลการแปลด้วยโมเดล AI</p>
+        <p style={styles.subtitle}>จัดการรายการมังงะที่ชื่นชอบ และตรวจสอบสถานะคิวการจัดทำบทแปลภาษาไทย</p>
       </div>
 
       {/* Tabs */}
@@ -177,7 +177,7 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
             <div style={styles.emptyCard} className="glass-panel">
               <span style={{ fontSize: '3rem' }}>⚡</span>
               <h3>ไม่มีภาระงานแปลที่ค้างอยู่</h3>
-              <p>เลือกมังงะที่คุณสนใจแล้วกด "แปลด้วย AI" เพื่อส่งประมวลผลบทแปลภาษาไทยได้ทันที</p>
+              <p>เลือกมังงะที่คุณสนใจแล้วกด "จัดทำคำแปล" เพื่อส่งประมวลผลบทแปลภาษาไทยได้ทันที</p>
             </div>
           ) : (
             <div style={styles.queueList}>
@@ -203,7 +203,7 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
                                 : { background: 'rgba(245, 158, 11, 0.1)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }
                             }
                           >
-                            {job.status === 'completed' ? 'แปลสำเร็จ' : job.status === 'downloading' ? 'ดาวน์โหลด' : job.status === 'cleaning' ? 'คลีนรูปภาพ' : job.status === 'ocr' ? 'OCR' : job.status === 'translating' ? 'AI แปลไทย' : job.status.toUpperCase()}
+                            {job.status === 'completed' ? 'แปลสำเร็จ' : job.status === 'downloading' ? 'ดาวน์โหลด' : job.status === 'cleaning' ? 'คลีนรูปภาพ' : job.status === 'ocr' ? 'วิเคราะห์ข้อความ' : job.status === 'translating' ? 'แปลภาษาไทย' : job.status.toUpperCase()}
                           </span>
                           <span style={styles.pagesText}>{job.pages || 16} หน้า</span>
                         </div>
@@ -223,10 +223,10 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
                         border: '1px solid rgba(255, 255, 255, 0.05)',
                       }} className="glass-panel">
                         <span style={{ fontSize: '1.2rem' }}>
-                          {job.status === 'completed' ? '✅' : (PIPELINE_STEPS[getActiveStepIndex(job.status)]?.icon || '🤖')}
+                          {job.status === 'completed' ? '✅' : (PIPELINE_STEPS[getActiveStepIndex(job.status)]?.icon || '📝')}
                         </span>
                         <span style={{ fontSize: '0.85rem', fontWeight: '700', color: job.status === 'completed' ? '#34d399' : 'var(--accent-cyan)' }}>
-                          สถานะตอนแปลไทย: {job.status === 'completed' ? 'แปลสำเร็จพร้อมอ่าน' : `กำลังประมวลผลแปลด้วย AI (${PIPELINE_STEPS[getActiveStepIndex(job.status)]?.label})`}
+                          สถานะตอนแปลไทย: {job.status === 'completed' ? 'แปลสำเร็จพร้อมอ่าน' : `กำลังประมวลผลแปลภาษาไทย (${PIPELINE_STEPS[getActiveStepIndex(job.status)]?.label})`}
                         </span>
                         {job.status !== 'completed' && (
                           <span className="loading-spinner" style={{
@@ -267,7 +267,7 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
                         style={{ padding: '8px 16px', fontSize: '0.85rem', ...(isMobile ? { width: '100%' } : {}) }}
                         onClick={() => toggleLogExpand(job.id)}
                       >
-                        {isExpanded ? 'ซ่อนสถานะขั้นตอนแปลภาษา AI ▲' : '🛠️ ตรวจสอบสถานะขั้นตอนแปลภาษา AI (สำหรับผู้พัฒนา) ▼'}
+                        {isExpanded ? 'ซ่อนรายละเอียดขั้นตอนแปลภาษา ▲' : '🛠️ ตรวจสอบสถานะขั้นตอนจัดทำแปลภาษา (สำหรับผู้พัฒนา) ▼'}
                       </button>
                       
                       <div style={{ display: 'flex', gap: '8px', ...(isMobile ? { width: '100%' } : {}) }}>
