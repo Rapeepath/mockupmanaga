@@ -185,7 +185,7 @@ export default function Admin({ suggestions = [], onApprove, onReject, onAiTrans
                       </div>
 
                       <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'bold' }}>ต้นฉบับ (JA):</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'bold' }}>ต้นฉบับ (EN):</div>
                         <div style={styles.codeText}>{sug.originalText}</div>
                       </div>
 
@@ -226,7 +226,7 @@ export default function Admin({ suggestions = [], onApprove, onReject, onAiTrans
                     <tr style={styles.trHeader}>
                       <th style={styles.thCol}>มังงะ / พิกัด</th>
                       <th style={styles.thCol}>ผู้เขียนคำแปล</th>
-                      <th style={styles.thCol}>ต้นฉบับ (JA)</th>
+                      <th style={styles.thCol}>ต้นฉบับ (EN)</th>
                       <th style={styles.thCol}>แปลไทยปัจจุบัน</th>
                       <th style={styles.thCol}>เสนอแนะปรับปรุง</th>
                       <th style={{ ...styles.thCol, textAlign: 'center' }}>การดำเนินการ</th>

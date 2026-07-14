@@ -2,6 +2,15 @@
 
 export let MOCK_MANGAS = [
   {
+    id: 'shibitonokoe',
+    title: 'Shibito no Koe o Kiku ga Yoi',
+    japaneseTitle: '死人の声をきくがよい',
+    description: 'Junpei has the unfortunate ability to see ghosts. Among them is the ghost of his childhood friend, Ryoko, who warns him of upcoming dangers. Together, they find themselves dragged into strange, horrific, and sometimes comical supernatural occurrences.',
+    coverUrl: '/covers/shibitonokoe.jpg',
+    status: 'ongoing',
+    tags: ['Horror', 'Supernatural', 'Mystery', 'Comedy'],
+  },
+  {
     id: 'b0b721ff-c388-4486-aa0e-ceec0bc4d5f4',
     title: 'Frieren: Beyond Journey\'s End',
     japaneseTitle: '葬送のフリーレン',
@@ -54,14 +63,24 @@ export const MOCK_CHAPTERS = {};
 export const getMangaChapters = (mangaId) => {
   if (!MOCK_CHAPTERS[mangaId]) {
     const chapters = [];
-    for (let i = 1; i <= 6; i++) {
+    if (mangaId === 'shibitonokoe') {
       chapters.push({
-        id: `${mangaId}-ch-${i}`,
-        chapter: i.toString(),
-        title: `Chapter ${i}: The Journey to the East`,
-        pages: 12 + i,
-        publishAt: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString()
+        id: 'shibitonokoe-ch-1',
+        chapter: '1',
+        title: 'Chapter 1: The Voice of the Dead',
+        pages: 13,
+        publishAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
       });
+    } else {
+      for (let i = 1; i <= 6; i++) {
+        chapters.push({
+          id: `${mangaId}-ch-${i}`,
+          chapter: i.toString(),
+          title: `Chapter ${i}: The Journey to the East`,
+          pages: 12 + i,
+          publishAt: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString()
+        });
+      }
     }
     MOCK_CHAPTERS[mangaId] = chapters;
   }

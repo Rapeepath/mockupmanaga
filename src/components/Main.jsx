@@ -189,7 +189,7 @@ export default function Main({ bookmarks, onToggleBookmark, downloads, onStartDo
             </div>
           ) : (
             <div className="manga-grid">
-              {recommendations.slice(1).map((manga) => (
+              {recommendations.map((manga) => (
                 <MangaCard
                   key={manga.id}
                   manga={manga}
@@ -301,13 +301,19 @@ export default function Main({ bookmarks, onToggleBookmark, downloads, onStartDo
                                 job.status === 'completed' ? (
                                   <button 
                                     className="btn btn-cyan" 
-                                    style={{ width: '100%', padding: '8px', fontSize: '0.8rem' }}
+                                    style={{ 
+                                      width: '100%', 
+                                      padding: '8px', 
+                                      fontSize: '0.8rem',
+                                      ...(selectedManga.id !== 'shibitonokoe' ? { opacity: 0.5, cursor: 'not-allowed', background: '#475569', borderColor: '#475569' } : {})
+                                    }}
+                                    disabled={selectedManga.id !== 'shibitonokoe'}
                                     onClick={() => {
                                       setSelectedManga(null);
                                       onViewChapter(job);
                                     }}
                                   >
-                                    📖 อ่านตอนนี้
+                                    {selectedManga.id !== 'shibitonokoe' ? '🔒 ล็อก (เฉพาะ Demo)' : '📖 อ่านตอนนี้'}
                                   </button>
                                 ) : (
                                   <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -320,10 +326,16 @@ export default function Main({ bookmarks, onToggleBookmark, downloads, onStartDo
                               ) : (
                                 <button 
                                   className="btn btn-primary" 
-                                  style={{ width: '100%', padding: '8px', fontSize: '0.8rem' }}
+                                  style={{ 
+                                    width: '100%', 
+                                    padding: '8px', 
+                                    fontSize: '0.8rem',
+                                    ...(selectedManga.id !== 'shibitonokoe' || ch.chapter !== '1' ? { opacity: 0.5, cursor: 'not-allowed', background: '#475569', borderColor: '#475569' } : {})
+                                  }}
+                                  disabled={selectedManga.id !== 'shibitonokoe' || ch.chapter !== '1'}
                                   onClick={() => onStartDownload(selectedManga, ch)}
                                 >
-                                  📖 แปลและอ่าน (AI)
+                                  {selectedManga.id !== 'shibitonokoe' || ch.chapter !== '1' ? '🔒 ล็อก (เฉพาะ Demo)' : '📖 แปลและอ่าน (AI)'}
                                 </button>
                               )}
                             </div>
@@ -356,13 +368,18 @@ export default function Main({ bookmarks, onToggleBookmark, downloads, onStartDo
                                     job.status === 'completed' ? (
                                       <button 
                                         className="btn btn-cyan" 
-                                        style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                                        style={{ 
+                                          padding: '6px 12px', 
+                                          fontSize: '0.8rem',
+                                          ...(selectedManga.id !== 'shibitonokoe' ? { opacity: 0.5, cursor: 'not-allowed', background: '#475569', borderColor: '#475569' } : {})
+                                        }}
+                                        disabled={selectedManga.id !== 'shibitonokoe'}
                                         onClick={() => {
                                           setSelectedManga(null);
                                           onViewChapter(job);
                                         }}
                                       >
-                                        📖 อ่านแปลไทย (AI)
+                                        {selectedManga.id !== 'shibitonokoe' ? '🔒 ล็อก (เฉพาะ Demo)' : '📖 อ่านแปลไทย (AI)'}
                                       </button>
                                     ) : (
                                       <span style={styles.progressStatus}>
@@ -373,10 +390,15 @@ export default function Main({ bookmarks, onToggleBookmark, downloads, onStartDo
                                   ) : (
                                     <button 
                                       className="btn btn-primary" 
-                                      style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                                      style={{ 
+                                        padding: '6px 12px', 
+                                        fontSize: '0.8rem',
+                                        ...(selectedManga.id !== 'shibitonokoe' || ch.chapter !== '1' ? { opacity: 0.5, cursor: 'not-allowed', background: '#475569', borderColor: '#475569' } : {})
+                                      }}
+                                      disabled={selectedManga.id !== 'shibitonokoe' || ch.chapter !== '1'}
                                       onClick={() => onStartDownload(selectedManga, ch)}
                                     >
-                                      📖 แปลและอ่าน (AI)
+                                      {selectedManga.id !== 'shibitonokoe' || ch.chapter !== '1' ? '🔒 ล็อก (เฉพาะ Demo)' : '📖 แปลและอ่าน (AI)'}
                                     </button>
                                   )}
                                 </td>

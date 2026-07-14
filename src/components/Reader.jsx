@@ -14,7 +14,7 @@ const MOCK_PAGES = [
           {
             id: 'b1-1-1',
             top: '25%', left: '15%', width: '150px', height: '90px',
-            original: 'ついに、この時が来たか...',
+            original: 'Finally, this moment has come...',
             translated: 'ในที่สุด ช่วงเวลานี้ก็มาถึงเสียที...',
             confidence: 98.6,
             speaker: 'Mysterious Mage'
@@ -31,7 +31,7 @@ const MOCK_PAGES = [
           {
             id: 'b1-2-1',
             top: '20%', left: '45%', width: '130px', height: '80px',
-            original: '本当に一人で行くのか？',
+            original: 'Are you really going alone?',
             translated: 'เจ้าจะไปคนเดียวจริงๆ หรือ?',
             confidence: 97.4,
             speaker: 'Companion'
@@ -48,7 +48,7 @@ const MOCK_PAGES = [
           {
             id: 'b1-3-1',
             top: '45%', left: '15%', width: '140px', height: '90px',
-            original: 'ああ。約束だからな。',
+            original: "Yes. Because it's a promise.",
             translated: 'อืม เพราะมันเป็นสัญญาน่ะ',
             confidence: 99.2,
             speaker: 'Hero'
@@ -70,7 +70,7 @@ const MOCK_PAGES = [
           {
             id: 'b2-1-1',
             top: '25%', left: '30%', width: '130px', height: '80px',
-            original: 'おい、あれを見ろ！',
+            original: 'Hey, look at that!',
             translated: 'เฮ้ย! ดูนั่นสิ!',
             confidence: 96.8,
             speaker: 'Companion'
@@ -87,7 +87,7 @@ const MOCK_PAGES = [
           {
             id: 'b2-2-1',
             top: '15%', left: '15%', width: '150px', height: '100px',
-            original: '信じられない... 何という魔力だ...',
+            original: 'Unbelievable... What an immense magic power...',
             translated: 'เหลือเชื่อจริงๆ... พลังเวทมนตร์อะไรกันเนี่ย...',
             confidence: 99.1,
             speaker: 'Hero'
@@ -95,7 +95,7 @@ const MOCK_PAGES = [
           {
             id: 'b2-2-2',
             top: '65%', left: '40%', width: '120px', height: '80px',
-            original: '逃げろ！早く！',
+            original: 'Run! Hurry!',
             translated: 'หนีไป! เร็วเข้า!',
             confidence: 99.8,
             speaker: 'Companion'
@@ -112,7 +112,7 @@ const MOCK_PAGES = [
           {
             id: 'b2-3-1',
             top: '30%', left: '20%', width: '130px', height: '85px',
-            original: '手遅れだ。奴が来る！',
+            original: "It's too late. It has arrived!",
             translated: 'ไม่ทันแล้ว มันมาแล้ว!',
             confidence: 98.0,
             speaker: 'Hero'
@@ -134,7 +134,7 @@ const MOCK_PAGES = [
           {
             id: 'b3-1-1',
             top: '15%', left: '45%', width: '180px', height: '110px',
-            original: '私は諦めない！何度でも立ち上がる！',
+            original: "I won't give up! I will stand up again and again!",
             translated: 'ฉันจะไม่ยอมแพ้! จะลุกขึ้นสู้ใหม่อีกกี่ครั้งก็ยอม!',
             confidence: 99.5,
             speaker: 'Hero'
@@ -142,7 +142,7 @@ const MOCK_PAGES = [
           {
             id: 'b3-1-2',
             top: '60%', left: '15%', width: '150px', height: '90px',
-            original: '終わりだ、無駄な足掻きを。',
+            original: "It's over, human. Your struggle is futile.",
             translated: 'จบสิ้นแล้ว เจ้ามนุษย์ การดิ้นรนของเจ้ามันสูญเปล่า',
             confidence: 98.7,
             speaker: 'Demon Lord'
@@ -153,6 +153,56 @@ const MOCK_PAGES = [
   }
 ];
 
+const SHIBITO_PAGES = Array.from({ length: 13 }, (_, i) => {
+  const pageNum = i + 1;
+  const panels = [];
+  if (pageNum === 1) {
+    panels.push({
+      id: 'shibito-p1',
+      title: 'PAGE 1: MAIN ENTRANCE',
+      gridStyle: {},
+      bubbles: [
+        {
+          id: 'shibito-b1-1',
+          top: '28%', left: '16%', width: '130px', height: '80px',
+          original: 'Ryoko... Are you still here?',
+          translated: 'เรียวโกะ... เธอยังอยู่ตรงนี้เหรอ?',
+          confidence: 96.5,
+          speaker: 'Junpei'
+        },
+        {
+          id: 'shibito-b1-2',
+          top: '64%', left: '50%', width: '140px', height: '70px',
+          original: 'Yes, I am always watching you.',
+          translated: 'ใช่แล้ว ฉันเฝ้ามองนายอยู่ตลอดนั่นแหละ',
+          confidence: 98.2,
+          speaker: 'Ryoko (Ghost)'
+        }
+      ]
+    });
+  } else if (pageNum === 2) {
+    panels.push({
+      id: 'shibito-p2',
+      title: 'PAGE 2: WARNING',
+      gridStyle: {},
+      bubbles: [
+        {
+          id: 'shibito-b2-1',
+          top: '35%', left: '22%', width: '130px', height: '80px',
+          original: 'Look out! Something is behind you...',
+          translated: 'ระวัง! มีบางอย่างอยู่ข้างหลังนาย...',
+          confidence: 97.4,
+          speaker: 'Ryoko (Ghost)'
+        }
+      ]
+    });
+  }
+  return {
+    pageNumber: pageNum,
+    panels
+  };
+});
+
 export default function Reader({ activeJob, onClose, customTranslations, onSuggestTranslation, suggestions, user, isMobile, onRequireLogin }) {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [viewMode, setViewMode] = useState('translated'); // 'translated', 'original', 'ocr'
@@ -162,6 +212,7 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
   const [showSuccessMsg, setShowSuccessMsg] = useState(false);
   const [activeEditingBubble, setActiveEditingBubble] = useState(null);
   const [editingText, setEditingText] = useState('');
+  const [guestName, setGuestName] = useState('');
   const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
 
   // Turn off edit mode automatically on logout
@@ -172,11 +223,6 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
   }, [user]);
 
   const handleToggleEditMode = () => {
-    if (!user) {
-      alert('กรุณาเข้าสู่ระบบก่อนเพื่อเสนอแก้ไขคำแปลมังงะในคอมมูนิตี้');
-      if (onRequireLogin) onRequireLogin();
-      return;
-    }
     setIsEditModeEnabled(prev => !prev);
   };
 
@@ -202,39 +248,38 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobile]);
 
-  const currentPage = MOCK_PAGES[currentPageIndex];
+  const pages = activeJob?.mangaId === 'shibitonokoe' ? SHIBITO_PAGES : MOCK_PAGES;
+  const currentPage = pages[currentPageIndex] || pages[0];
   
   const handlePageChange = (index) => {
-    if (index >= 0 && index < MOCK_PAGES.length) {
+    if (index >= 0 && index < pages.length) {
       setCurrentPageIndex(index);
       setActiveEditingBubble(null);
     }
   };
 
   const handleStartEdit = (bubble) => {
-    if (!user) {
-      alert('กรุณาเข้าสู่ระบบก่อนเพื่อเสนอแก้ไขคำแปลมังงะในคอมมูนิตี้');
-      if (onRequireLogin) onRequireLogin();
-      return;
-    }
     setActiveEditingBubble(bubble);
     setEditingText(customTranslations[bubble.id] !== undefined ? customTranslations[bubble.id] : bubble.translated);
+    setGuestName('');
   };
 
   const handleSaveEdit = () => {
     if (activeEditingBubble && editingText.trim()) {
-      onSuggestTranslation(activeEditingBubble, editingText);
+      const contributorName = user ? user.username : (guestName.trim() ? guestName.trim() : 'ผู้ใช้นิรนาม');
+      onSuggestTranslation(activeEditingBubble, editingText, contributorName);
       setShowSuccessMsg(true);
       setTimeout(() => {
         setShowSuccessMsg(false);
       }, 4000);
       setActiveEditingBubble(null);
       setEditingText('');
+      setGuestName('');
     }
   };
 
   return (
-    <div className="container animate-fade-in" style={{
+    <div className="animate-fade-in" style={{
       ...styles.container,
       ...(isMobile ? { height: 'auto', paddingBottom: activeEditingBubble ? '320px' : '40px' } : {})
     }}>
@@ -279,34 +324,47 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
             gap: '12px',
           } : {})
         }}>
-          <button 
-            className="btn btn-secondary" 
-            style={{
-              ...styles.controlBtn,
-              ...(isMobile ? { padding: '6px 10px', fontSize: '0.75rem' } : {})
-            }} 
-            disabled={currentPageIndex === 0}
-            onClick={() => handlePageChange(currentPageIndex - 1)}
-          >
-            ◀ ก่อนหน้า
-          </button>
-          <span style={{
-            ...styles.pageIndicator,
-            ...(isMobile ? { fontSize: '0.8rem' } : {})
-          }}>
-            หน้า {currentPageIndex + 1} จาก {MOCK_PAGES.length}
-          </span>
-          <button 
-            className="btn btn-secondary" 
-            style={{
-              ...styles.controlBtn,
-              ...(isMobile ? { padding: '6px 10px', fontSize: '0.75rem' } : {})
-            }} 
-            disabled={currentPageIndex === MOCK_PAGES.length - 1}
-            onClick={() => handlePageChange(currentPageIndex + 1)}
-          >
-            ถัดไป ▶
-          </button>
+          {activeJob.mangaId === 'shibitonokoe' ? (
+            <span style={{
+              ...styles.pageIndicator,
+              color: 'var(--accent-cyan)',
+              fontWeight: '800',
+              ...(isMobile ? { fontSize: '0.85rem' } : {})
+            }}>
+              ✨ โหมดอ่านต่อเนื่องแนวตั้ง (เลื่อนลงเพื่ออ่านต่อ) • {pages.length} หน้า
+            </span>
+          ) : (
+            <>
+              <button 
+                className="btn btn-secondary" 
+                style={{
+                  ...styles.controlBtn,
+                  ...(isMobile ? { padding: '6px 10px', fontSize: '0.75rem' } : {})
+                }} 
+                disabled={currentPageIndex === 0}
+                onClick={() => handlePageChange(currentPageIndex - 1)}
+              >
+                ◀ ก่อนหน้า
+              </button>
+              <span style={{
+                ...styles.pageIndicator,
+                ...(isMobile ? { fontSize: '0.8rem' } : {})
+              }}>
+                หน้า {currentPageIndex + 1} จาก {pages.length}
+              </span>
+              <button 
+                className="btn btn-secondary" 
+                style={{
+                  ...styles.controlBtn,
+                  ...(isMobile ? { padding: '6px 10px', fontSize: '0.75rem' } : {})
+                }} 
+                disabled={currentPageIndex === pages.length - 1}
+                onClick={() => handlePageChange(currentPageIndex + 1)}
+              >
+                ถัดไป ▶
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mode Selector & Zoom */}
@@ -342,7 +400,7 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
               }}
               onClick={() => setViewMode('original')}
             >
-              ญี่ปุ่นต้นฉบับ
+              อังกฤษต้นฉบับ
             </button>
             <button 
               style={{
@@ -407,181 +465,356 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
               ...styles.mangaPage,
               transform: `scale(${zoomScale})`,
               transformOrigin: 'top center',
+              position: 'relative',
+              ...(activeJob.mangaId === 'shibitonokoe' ? { padding: 0, background: '#000', border: 'none', boxShadow: 'none' } : {})
             }}
-            className="glass-panel"
+            className={activeJob.mangaId === 'shibitonokoe' ? "" : "glass-panel"}
           >
-            {/* Page Grid Structure */}
-            <div style={styles.pageGrid}>
-              {currentPage.panels.map((panel) => (
-                <div 
-                  key={panel.id} 
-                  style={{
-                    ...styles.panelBox,
-                    ...panel.gridStyle,
-                    backgroundImage: panel.bg
-                  }}
-                >
-                  {/* Decorative manga effect layout */}
-                  <div style={styles.screentoneOverlay}></div>
-                  <span style={styles.panelTitleBadge}>{panel.title}</span>
+            {activeJob.mangaId === 'shibitonokoe' ? (
+              /* Real image pages in vertical scroll layout */
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%', background: '#000' }}>
+                {pages.map((page, idx) => (
+                  <div key={idx} style={{ position: 'relative', width: '100%', borderBottom: '8px solid #1e293b', paddingBottom: '24px' }}>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '800', marginBottom: '12px', textAlign: 'center' }}>
+                      — หน้า {idx + 1} —
+                    </div>
+                    <img 
+                      src={viewMode === 'original' 
+                        ? `/source/page_${String(idx + 1).padStart(3, '0')}.png` 
+                        : `/manga/page_${String(idx + 1).padStart(3, '0')}.png`
+                      }
+                      alt={`Page ${idx + 1}`}
+                      style={{ width: '100%', display: 'block', borderRadius: '4px' }}
+                    />
+                    {/* Render Speech Bubbles for this page */}
+                    {page.panels?.map((panel) => {
+                      return panel.bubbles.map((bubble) => {
+                        const activeText = customTranslations[bubble.id] || bubble.translated;
+                        const isHovered = hoveredBubble?.id === bubble.id;
+                        const isOcrMode = viewMode === 'ocr';
+                        const pendingSugCount = suggestions.filter(s => s.bubbleId === bubble.id && s.status === 'pending').length;
+                        
+                        return (
+                          <div
+                            key={bubble.id}
+                            style={{
+                              ...styles.bubbleWrapper,
+                              top: bubble.top,
+                              left: bubble.left,
+                              width: bubble.width,
+                              height: bubble.height,
+                              border: isOcrMode 
+                                ? '2px dashed var(--accent-cyan)' 
+                                : (pendingSugCount > 0 && isEditModeEnabled)
+                                ? '2px dashed var(--accent-orange)'
+                                : (isHovered && isEditModeEnabled)
+                                ? '2px solid var(--accent-purple)' 
+                                : '2px solid transparent',
+                              backgroundColor: isOcrMode 
+                                ? 'rgba(0, 245, 212, 0.15)' 
+                                : (pendingSugCount > 0 && isEditModeEnabled)
+                                ? 'rgba(255, 159, 28, 0.05)'
+                                : (isHovered && isEditModeEnabled)
+                                ? 'rgba(255, 255, 255, 0.98)' 
+                                : 'rgba(255, 255, 255, 0.85)',
+                              boxShadow: (isHovered && isEditModeEnabled)
+                                ? '0 0 15px rgba(157, 78, 221, 0.5)' 
+                                : (pendingSugCount > 0 && isEditModeEnabled) 
+                                ? '0 0 8px rgba(255, 159, 28, 0.3)'
+                                : 'none'
+                            }}
+                            onMouseEnter={() => setHoveredBubble(bubble)}
+                            onMouseLeave={() => setHoveredBubble(null)}
+                            onClick={() => {
+                              handleStartEdit(bubble);
+                            }}
+                            title={pendingSugCount > 0 ? "คลิกเพื่อดูประวัติคำเสนอแนะแก้ไขบทแปล" : "คลิกเพื่อเสนอคำแปลที่สละสลวยขึ้น / รายงานแปลผิด"}
+                          >
+                            {/* Pencil Edit Icon shown on hover */}
+                            {isHovered && !isOcrMode && (
+                              <span style={{
+                                position: 'absolute',
+                                bottom: '-8px',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                background: 'var(--accent-purple)',
+                                color: '#fff',
+                                fontSize: '0.65rem',
+                                padding: '2px 6px',
+                                borderRadius: '10px',
+                                boxShadow: '0 0 6px rgba(157, 78, 221, 0.6)',
+                                pointerEvents: 'none',
+                                zIndex: 10,
+                                whiteSpace: 'nowrap'
+                              }}>
+                                ✏️ เสนอแนะคำแปล
+                              </span>
+                            )}
+                            {/* Bounding box badge in OCR mode */}
+                            {isOcrMode && (
+                              <span style={styles.ocrBadge}>
+                                {bubble.confidence}%
+                              </span>
+                            )}
 
-                  {/* Render Panel Speech Bubbles */}
-                  {panel.bubbles.map((bubble) => {
-                    const activeText = customTranslations[bubble.id] || bubble.translated;
-                    const isHovered = hoveredBubble?.id === bubble.id;
-                    const isOcrMode = viewMode === 'ocr';
-                    const pendingSugCount = suggestions.filter(s => s.bubbleId === bubble.id && s.status === 'pending').length;
-                    
-                    return (
-                      <div
-                        key={bubble.id}
-                        style={{
-                          ...styles.bubbleWrapper,
-                          top: bubble.top,
-                          left: bubble.left,
-                          width: bubble.width,
-                          height: bubble.height,
-                          border: isOcrMode 
-                            ? '2px dashed var(--accent-cyan)' 
-                            : (pendingSugCount > 0 && isEditModeEnabled)
-                            ? '2px dashed var(--accent-orange)'
-                            : (isHovered && isEditModeEnabled)
-                            ? '2px solid var(--accent-purple)' 
-                            : '2px solid transparent',
-                          backgroundColor: isOcrMode 
-                            ? 'rgba(0, 245, 212, 0.15)' 
-                            : (pendingSugCount > 0 && isEditModeEnabled)
-                            ? 'rgba(255, 159, 28, 0.05)'
-                            : (isHovered && isEditModeEnabled)
-                            ? 'rgba(255, 255, 255, 0.98)' 
-                            : 'rgba(255, 255, 255, 0.85)',
-                          boxShadow: (isHovered && isEditModeEnabled)
-                            ? '0 0 15px rgba(157, 78, 221, 0.5)' 
-                            : (pendingSugCount > 0 && isEditModeEnabled) 
-                            ? '0 0 8px rgba(255, 159, 28, 0.3)'
-                            : 'none'
-                        }}
-                        onMouseEnter={() => setHoveredBubble(bubble)}
-                        onMouseLeave={() => setHoveredBubble(null)}
-                        onClick={() => {
-                          if (isEditModeEnabled) {
+                            {/* Dialogue Correction Alert Icon */}
+                            {pendingSugCount > 0 && !isOcrMode && (
+                              <span style={{
+                                position: 'absolute',
+                                top: '-8px',
+                                right: '-8px',
+                                background: 'var(--accent-orange)',
+                                color: '#fff',
+                                fontSize: '0.65rem',
+                                fontWeight: 'bold',
+                                width: '16px',
+                                height: '16px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                boxShadow: '0 0 8px rgba(255, 159, 28, 0.6)'
+                              }} title={`${pendingSugCount} community suggestion(s)`}>
+                                💡
+                              </span>
+                            )}
+
+                            {/* Bubble Text */}
+                            {viewMode === 'original' ? (
+                              <div style={styles.enText}>
+                                {bubble.original}
+                              </div>
+                            ) : (
+                              <div style={styles.thText}>
+                                {activeText}
+                              </div>
+                            )}
+
+                            {/* Hover Quick Statistics Tooltip */}
+                            {isHovered && !activeEditingBubble && (
+                              <div style={styles.tooltip} className="glass-panel">
+                                <div style={styles.tooltipHeader}>
+                                  <strong>ข้อมูลช่องบทสนทนา</strong>
+                                  <span className="badge badge-cyan">{bubble.confidence}% Acc</span>
+                                </div>
+                                <p style={styles.tooltipLine}><strong>ตัวละคร:</strong> {bubble.speaker}</p>
+                                <p style={styles.tooltipLine}><strong>อังกฤษ (EN):</strong> {bubble.original}</p>
+                                <p style={{ margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  <strong>ไทย (TH):</strong> {activeText.substring(0, 30)}...
+                                </p>
+                                <small style={styles.tooltipTip}>
+                                  {pendingSugCount > 0 
+                                    ? `💡 มี ${pendingSugCount} ข้อเสนอแก้ไขค้างอยู่!` 
+                                    : '💡 มีคำแปลตรงไหนผิดปกติ? ร่วมแชร์คำเสนอแนะของคุณได้'}
+                                </small>
+                                <button
+                                  style={{
+                                    width: '100%',
+                                    marginTop: '6px',
+                                    padding: '8px',
+                                    fontSize: '0.75rem',
+                                    background: 'linear-gradient(135deg, var(--accent-purple), #7b2cbf)',
+                                    border: 'none',
+                                    color: '#fff',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '4px',
+                                    boxShadow: '0 2px 8px rgba(157, 78, 221, 0.4)',
+                                    transition: 'all 0.2s',
+                                  }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleStartEdit(bubble);
+                                  }}
+                                >
+                                  ✏️ เสนอแก้ไข / รายงานแปลผิด
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      });
+                    })}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Page Grid Structure for other mangas */
+              <div style={styles.pageGrid}>
+                {currentPage.panels.map((panel) => (
+                  <div 
+                    key={panel.id} 
+                    style={{
+                      ...styles.panelBox,
+                      ...panel.gridStyle,
+                      backgroundImage: panel.bg
+                    }}
+                  >
+                    {/* Decorative manga effect layout */}
+                    <div style={styles.screentoneOverlay}></div>
+                    <span style={styles.panelTitleBadge}>{panel.title}</span>
+
+                    {/* Render Panel Speech Bubbles */}
+                    {panel.bubbles.map((bubble) => {
+                      const activeText = customTranslations[bubble.id] || bubble.translated;
+                      const isHovered = hoveredBubble?.id === bubble.id;
+                      const isOcrMode = viewMode === 'ocr';
+                      const pendingSugCount = suggestions.filter(s => s.bubbleId === bubble.id && s.status === 'pending').length;
+                      
+                      return (
+                        <div
+                          key={bubble.id}
+                          style={{
+                            ...styles.bubbleWrapper,
+                            top: bubble.top,
+                            left: bubble.left,
+                            width: bubble.width,
+                            height: bubble.height,
+                            border: isOcrMode 
+                              ? '2px dashed var(--accent-cyan)' 
+                              : (pendingSugCount > 0 && isEditModeEnabled)
+                              ? '2px dashed var(--accent-orange)'
+                              : (isHovered && isEditModeEnabled)
+                              ? '2px solid var(--accent-purple)' 
+                              : '2px solid transparent',
+                            backgroundColor: isOcrMode 
+                              ? 'rgba(0, 245, 212, 0.15)' 
+                              : (pendingSugCount > 0 && isEditModeEnabled)
+                              ? 'rgba(255, 159, 28, 0.05)'
+                              : (isHovered && isEditModeEnabled)
+                              ? 'rgba(255, 255, 255, 0.98)' 
+                              : 'rgba(255, 255, 255, 0.85)',
+                            boxShadow: (isHovered && isEditModeEnabled)
+                              ? '0 0 15px rgba(157, 78, 221, 0.5)' 
+                              : (pendingSugCount > 0 && isEditModeEnabled) 
+                              ? '0 0 8px rgba(255, 159, 28, 0.3)'
+                              : 'none'
+                          }}
+                          onMouseEnter={() => setHoveredBubble(bubble)}
+                          onMouseLeave={() => setHoveredBubble(null)}
+                          onClick={() => {
                             handleStartEdit(bubble);
-                          }
-                        }}
-                        title={isEditModeEnabled ? (pendingSugCount > 0 ? "คลิกเพื่อดูประวัติคำแปลที่เสนอแนะ" : "คลิกเพื่อเสนอคำแปลที่สละสลวยขึ้น") : undefined}
-                      >
-                        {/* Pencil Edit Icon shown on hover */}
-                        {isHovered && isEditModeEnabled && !isOcrMode && (
-                          <span style={{
-                            position: 'absolute',
-                            bottom: '-8px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            background: 'var(--accent-purple)',
-                            color: '#fff',
-                            fontSize: '0.65rem',
-                            padding: '2px 6px',
-                            borderRadius: '10px',
-                            boxShadow: '0 0 6px rgba(157, 78, 221, 0.6)',
-                            pointerEvents: 'none',
-                            zIndex: 10,
-                            whiteSpace: 'nowrap'
-                          }}>
-                            ✏️ เสนอแนะคำแปล
-                          </span>
-                        )}
-                        {/* Bounding box badge in OCR mode */}
-                        {isOcrMode && (
-                          <span style={styles.ocrBadge}>
-                            {bubble.confidence}%
-                          </span>
-                        )}
+                          }}
+                          title={pendingSugCount > 0 ? "คลิกเพื่อดูประวัติคำเสนอแนะแก้ไขบทแปล" : "คลิกเพื่อเสนอคำแปลที่สละสลวยขึ้น / รายงานแปลผิด"}
+                        >
+                          {/* Pencil Edit Icon shown on hover */}
+                          {isHovered && !isOcrMode && (
+                            <span style={{
+                              position: 'absolute',
+                              bottom: '-8px',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              background: 'var(--accent-purple)',
+                              color: '#fff',
+                              fontSize: '0.65rem',
+                              padding: '2px 6px',
+                              borderRadius: '10px',
+                              boxShadow: '0 0 6px rgba(157, 78, 221, 0.6)',
+                              pointerEvents: 'none',
+                              zIndex: 10,
+                              whiteSpace: 'nowrap'
+                            }}>
+                              ✏️ เสนอแนะคำแปล
+                            </span>
+                          )}
+                          {/* Bounding box badge in OCR mode */}
+                          {isOcrMode && (
+                            <span style={styles.ocrBadge}>
+                              {bubble.confidence}%
+                            </span>
+                          )}
 
-                        {/* Dialogue Correction Alert Icon */}
-                        {pendingSugCount > 0 && !isOcrMode && (
-                          <span style={{
-                            position: 'absolute',
-                            top: '-8px',
-                            right: '-8px',
-                            background: 'var(--accent-orange)',
-                            color: '#fff',
-                            fontSize: '0.65rem',
-                            fontWeight: 'bold',
-                            width: '16px',
-                            height: '16px',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 0 8px rgba(255, 159, 28, 0.6)'
-                          }} title={`${pendingSugCount} community suggestion(s)`}>
-                            💡
-                          </span>
-                        )}
+                          {/* Dialogue Correction Alert Icon */}
+                          {pendingSugCount > 0 && !isOcrMode && (
+                            <span style={{
+                              position: 'absolute',
+                              top: '-8px',
+                              right: '-8px',
+                              background: 'var(--accent-orange)',
+                              color: '#fff',
+                              fontSize: '0.65rem',
+                              fontWeight: 'bold',
+                              width: '16px',
+                              height: '16px',
+                              borderRadius: '50%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              boxShadow: '0 0 8px rgba(255, 159, 28, 0.6)'
+                            }} title={`${pendingSugCount} community suggestion(s)`}>
+                              💡
+                            </span>
+                          )}
 
-                        {/* Bubble Text */}
-                        {viewMode === 'original' ? (
-                          <div style={styles.jaText}>
-                            {bubble.original}
-                          </div>
-                        ) : (
-                          <div style={styles.enText}>
-                            {activeText}
-                          </div>
-                        )}
-
-                        {/* Hover Quick Statistics Tooltip */}
-                        {isHovered && !activeEditingBubble && (
-                          <div style={styles.tooltip} className="glass-panel">
-                            <div style={styles.tooltipHeader}>
-                              <strong>ข้อมูลช่องบทสนทนา</strong>
-                              <span className="badge badge-cyan">{bubble.confidence}% Acc</span>
+                          {/* Bubble Text */}
+                          {viewMode === 'original' ? (
+                            <div style={styles.enText}>
+                              {bubble.original}
                             </div>
-                            <p style={styles.tooltipLine}><strong>ตัวละคร:</strong> {bubble.speaker}</p>
-                            <p style={styles.tooltipLine}><strong>ญี่ปุ่น (JA):</strong> {bubble.original}</p>
-                            <p style={styles.tooltipLine}>
-                              <strong>ไทย (TH):</strong> {activeText.substring(0, 30)}...
-                            </p>
-                            <small style={styles.tooltipTip}>
-                              {isEditModeEnabled ? (
-                                pendingSugCount > 0 
-                                  ? `💡 มี ${pendingSugCount} ข้อเสนอแนะ! คลิกเพื่อดูรายละเอียด` 
-                                  : '💡 คลิกเพื่อร่วมเสนอคำแปลที่ดีกว่า'
-                              ) : (
-                                '💡 เปิดโหมดเสนอแก้ไขเพื่อร่วมปรับแต่งคำแปล'
-                              )}
-                            </small>
-                            {isEditModeEnabled && (
+                          ) : (
+                            <div style={styles.thText}>
+                              {activeText}
+                            </div>
+                          )}
+
+                          {/* Hover Quick Statistics Tooltip */}
+                          {isHovered && !activeEditingBubble && (
+                            <div style={styles.tooltip} className="glass-panel">
+                              <div style={styles.tooltipHeader}>
+                                <strong>ข้อมูลช่องบทสนทนา</strong>
+                                <span className="badge badge-cyan">{bubble.confidence}% Acc</span>
+                              </div>
+                              <p style={styles.tooltipLine}><strong>ตัวละคร:</strong> {bubble.speaker}</p>
+                              <p style={styles.tooltipLine}><strong>อังกฤษ (EN):</strong> {bubble.original}</p>
+                              <p style={{ margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                <strong>ไทย (TH):</strong> {activeText.substring(0, 30)}...
+                              </p>
+                              <small style={styles.tooltipTip}>
+                                {pendingSugCount > 0 
+                                  ? `💡 มี ${pendingSugCount} ข้อเสนอแก้ไขค้างอยู่!` 
+                                  : '💡 มีคำแปลตรงไหนผิดปกติ? ร่วมแชร์คำเสนอแนะของคุณได้'}
+                              </small>
                               <button
                                 style={{
                                   width: '100%',
-                                  marginTop: '4px',
-                                  padding: '6px',
+                                  marginTop: '6px',
+                                  padding: '8px',
                                   fontSize: '0.75rem',
-                                  background: 'var(--accent-purple)',
+                                  background: 'linear-gradient(135deg, var(--accent-purple), #7b2cbf)',
                                   border: 'none',
                                   color: '#fff',
-                                  borderRadius: '4px',
+                                  borderRadius: '6px',
                                   cursor: 'pointer',
                                   fontWeight: 'bold',
                                   textAlign: 'center',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  gap: '4px',
+                                  boxShadow: '0 2px 8px rgba(157, 78, 221, 0.4)',
+                                  transition: 'all 0.2s',
                                 }}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleStartEdit(bubble);
                                 }}
                               >
-                                ✏️ แจ้งเสนอแนะแก้ไขคำแปล
+                                ✏️ เสนอแก้ไข / รายงานแปลผิด
                               </button>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -626,7 +859,7 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
               </div>
 
               <div style={styles.sidebarGroup}>
-                <label style={styles.sidebarLabel}>ข้อความต้นฉบับ (Japanese)</label>
+                <label style={styles.sidebarLabel}>ข้อความต้นฉบับ (English)</label>
                 <div style={styles.readonlyTextBox}>
                   {activeEditingBubble.original}
                 </div>
@@ -675,6 +908,28 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
 
               {/* WRITE NEW SUGGESTION */}
               <div style={styles.sidebarGroup}>
+                {!user && (
+                  <div style={{ marginBottom: '12px' }}>
+                    <label style={styles.sidebarLabel}>ชื่อผู้เสนอแนะ (ระบุชื่อเล่น / ไม่ระบุตัวตน)</label>
+                    <input
+                      type="text"
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        background: 'var(--bg-input)',
+                        border: '1px solid rgba(157, 78, 221, 0.3)',
+                        borderRadius: '6px',
+                        color: '#fff',
+                        fontSize: '0.85rem',
+                        outline: 'none',
+                        boxSizing: 'border-box',
+                      }}
+                      value={guestName}
+                      onChange={(e) => setGuestName(e.target.value)}
+                      placeholder="เช่น สมชาย ใจดี (หรือเว้นว่างไว้เพื่อใช้นามแฝง)"
+                    />
+                  </div>
+                )}
                 <label style={styles.sidebarLabel}>เสนอคำแปลภาษาไทยใหม่ (Suggest Edit)</label>
                 <textarea
                   style={styles.sidebarTextarea}
@@ -683,6 +938,20 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
                   placeholder="พิมพ์บทแปลใหม่ที่เหมาะสมสำหรับฉากนี้..."
                   rows={3}
                 />
+                {!user && (
+                  <div style={{
+                    marginTop: '8px',
+                    padding: '10px',
+                    background: 'rgba(0, 245, 212, 0.05)',
+                    border: '1px dashed rgba(0, 245, 212, 0.2)',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem',
+                    color: 'var(--text-muted)',
+                    lineHeight: '1.4',
+                  }}>
+                    💡 <strong>คำแนะนำ:</strong> คุณสามารถเสนอแก้ไขคำแปลในฐานะนักอ่านทั่วไปได้ แต่หาก <span style={{ color: 'var(--accent-cyan)', cursor: 'pointer', textDecoration: 'underline', fontWeight: 'bold' }} onClick={onRequireLogin}>เข้าสู่ระบบ</span> คุณจะสะสมแต้มคะแนนในทำเนียบผู้แปลได้!
+                  </div>
+                )}
               </div>
 
               <div style={styles.sidebarActions}>
@@ -715,11 +984,17 @@ export default function Reader({ activeJob, onClose, customTranslations, onSugge
 
 const styles = {
   container: {
-    paddingTop: '20px',
-    paddingBottom: '40px',
+    paddingTop: '16px',
+    paddingBottom: '16px',
+    paddingLeft: '16px',
+    paddingRight: '16px',
     display: 'flex',
     flexDirection: 'column',
-    height: 'calc(100vh - 64px)', // Deduct navigation height
+    height: '100vh',
+    width: '100vw',
+    maxWidth: '100%',
+    backgroundColor: '#080c14',
+    color: '#fff',
     boxSizing: 'border-box',
   },
   toolbar: {
@@ -727,10 +1002,12 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    background: 'var(--bg-card)',
+    background: 'rgba(30, 41, 59, 0.4)',
+    backdropFilter: 'blur(12px)',
     marginBottom: '20px',
     flexShrink: 0,
-    border: '1px solid rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '12px',
   },
   toolbarLeft: {
     display: 'flex',
@@ -808,7 +1085,7 @@ const styles = {
     fontSize: '0.8rem',
     width: '44px',
     textAlign: 'center',
-    color: 'var(--text-main)',
+    color: '#fff',
   },
   workspace: {
     display: 'flex',
@@ -881,7 +1158,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '12px',
+    padding: '6px',
     cursor: 'pointer',
     boxSizing: 'border-box',
     transition: 'all 0.2s ease',
@@ -899,7 +1176,7 @@ const styles = {
     borderRadius: '4px',
     lineHeight: '1',
   },
-  enText: {
+  thText: {
     color: '#000',
     fontSize: '0.85rem',
     fontWeight: '700',
@@ -909,15 +1186,15 @@ const styles = {
     letterSpacing: '-0.01em',
     wordBreak: 'break-word',
   },
-  jaText: {
+  enText: {
     color: '#000',
     fontSize: '0.85rem',
-    fontWeight: '800',
-    writingMode: 'vertical-rl',
-    textOrientation: 'upright',
-    lineHeight: '1.4',
-    fontFamily: '"MS Mincho", "Hiragino Mincho ProN", serif',
-    letterSpacing: '0.1em',
+    fontWeight: '700',
+    textAlign: 'center',
+    lineHeight: '1.3',
+    fontFamily: '"Comic Neue", "Comic Sans MS", "Plus Jakarta Sans", sans-serif', // Simulates English comic font
+    letterSpacing: '-0.01em',
+    wordBreak: 'break-word',
   },
   // Tooltip
   tooltip: {

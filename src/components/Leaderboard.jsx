@@ -101,7 +101,7 @@ export default function Leaderboard({ leaderboard, user, isMobile }) {
                         ...(isMobile ? { padding: '10px 6px', fontSize: '0.85rem' } : {})
                       }}>
                         <div style={styles.userColumn}>
-                          <span style={{ color: isCurrentUser ? 'var(--accent-cyan)' : '#fff' }}>
+                          <span style={{ color: isCurrentUser ? 'var(--accent-cyan)' : 'var(--text-main)' }}>
                             {member.username} {isCurrentUser && ' (คุณ)'}
                           </span>
                         </div>
@@ -208,7 +208,7 @@ const styles = {
   },
   title: {
     fontSize: '2rem',
-    color: '#fff',
+    color: 'var(--text-main)',
     marginBottom: '8px',
   },
   subtitle: {
@@ -242,11 +242,11 @@ const styles = {
   statVal: {
     fontSize: '1.8rem',
     fontWeight: '800',
-    color: '#fff',
+    color: 'var(--text-main)',
   },
   statSub: {
     fontSize: '0.7rem',
-    color: 'var(--accent-cyan)',
+    color: 'var(--accent-purple)',
     fontWeight: '600',
   },
   contentGrid: {
@@ -258,14 +258,14 @@ const styles = {
   tableCard: {
     padding: '24px',
     background: 'var(--bg-card)',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
+    border: '1px solid var(--border-color)',
   },
   tableHeaderSection: {
     marginBottom: '20px',
   },
   tableTitle: {
     fontSize: '1.25rem',
-    color: '#fff',
+    color: 'var(--text-main)',
     marginBottom: '4px',
   },
   tableWrapper: {
@@ -276,7 +276,7 @@ const styles = {
     borderCollapse: 'collapse',
   },
   tableHeaderRow: {
-    borderBottom: '2px solid rgba(255,255,255,0.08)',
+    borderBottom: '2px solid var(--border-color)',
   },
   th: {
     padding: '12px 16px',
@@ -287,13 +287,14 @@ const styles = {
     letterSpacing: '0.05em',
   },
   tr: {
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
+    borderBottom: '1px solid var(--border-color)',
     transition: 'background-color 0.2s',
   },
   td: {
     padding: '16px',
     fontSize: '0.9rem',
     verticalAlign: 'middle',
+    color: 'var(--text-main)',
   },
   userColumn: {
     display: 'flex',
@@ -309,11 +310,11 @@ const styles = {
   infoCard: {
     padding: '24px',
     background: 'var(--bg-card)',
-    border: '1px solid rgba(255,255,255,0.05)',
+    border: '1px solid var(--border-color)',
   },
   infoTitle: {
     fontSize: '1.15rem',
-    color: '#fff',
+    color: 'var(--text-main)',
     marginBottom: '16px',
   },
   rulesList: {
@@ -332,7 +333,7 @@ const styles = {
   badgeShowcaseCard: {
     padding: '24px',
     background: 'var(--bg-card)',
-    border: '1px solid rgba(255,255,255,0.05)',
+    border: '1px solid var(--border-color)',
   },
   badgeGrid: {
     display: 'flex',
@@ -344,9 +345,9 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '8px 12px',
-    background: 'rgba(255,255,255,0.02)',
+    background: 'var(--bg-input)',
     borderRadius: '6px',
-    border: '1px solid rgba(255,255,255,0.03)',
+    border: '1px solid var(--border-color)',
   },
   badgeInfoText: {
     fontSize: '0.8rem',

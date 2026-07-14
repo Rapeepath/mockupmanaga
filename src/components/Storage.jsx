@@ -50,17 +50,17 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
       logs.push(`[คลีนภาพ] กำลังลบตัวอักษรต้นฉบับออกจากภาพมังงะ...`);
     }
     if (job.progress >= 60) {
-      logs.push(`[คลีนภาพ] กำลังลบตัวอักษรญี่ปุ่นต้นฉบับและฟื้นฟูพื้นหลังของภาพมังงะ...`);
+      logs.push(`[คลีนภาพ] กำลังลบตัวอักษรอังกฤษต้นฉบับและฟื้นฟูพื้นหลังของภาพมังงะ...`);
       logs.push(`[คลีนภาพ] ลบเลเยอร์ข้อความเดิมออกทั้งหมด ${Math.floor((job.pages || 16) * 2.5)} บอลลูน ได้รับภาพเปล่าเรียบร้อย`);
     }
     if (job.progress >= 65) {
-      logs.push(`[แปลภาษา] กำลังแปลบทสนทนาภาษาญี่ปุ่นเป็นภาษาไทย...`);
+      logs.push(`[แปลภาษา] กำลังแปลบทสนทนาภาษาอังกฤษเป็นภาษาไทย...`);
       logs.push(`[แปลภาษา] กำหนดบริบทเฉพาะ ชื่อตัวละคร และแนวทางการปรับสำนวนให้เข้ากับท้องเรื่อง...`);
     }
     if (job.progress >= 80) {
       logs.push(`[แปลภาษา] กำลังประมวลผลคำแปลภาษาไทย...`);
       logs.push(`[แปลภาษา] แปลบทสนทนาเสร็จสิ้น เรียบร้อยสมบูรณ์`);
-      logs.push(`[แปลภาษา] ตัวอย่างคำแปล: "何だと？！" -> "เจ้าว่ายังไงนะ?!" (ปรับสำนวนเข้ากับท้องเรื่อง)`);
+      logs.push(`[แปลภาษา] ตัวอย่างคำแปล: "What did you say?!" -> "เจ้าว่ายังไงนะ?!" (ปรับสำนวนเข้ากับท้องเรื่อง)`);
     }
     if (job.progress >= 85) {
       logs.push(`[จัดช่องไฟ] กำลังจัดเรียงบทแปลภาษาไทยลงในบอลลูนคำพูด...`);
@@ -279,12 +279,17 @@ export default function Storage({ bookmarks, onToggleBookmark, downloads, onCanc
                           ลบงานแปล
                         </button>
                         <button 
-                          className={job.status === 'completed' ? 'btn btn-cyan' : 'btn btn-secondary'}
-                          style={{ padding: '8px 20px', fontSize: '0.85rem', flex: 2 }}
-                          disabled={job.status !== 'completed'}
+                          className={job.status === 'completed' && job.mangaId === 'shibitonokoe' ? 'btn btn-cyan' : 'btn btn-secondary'}
+                          style={{ 
+                            padding: '8px 20px', 
+                            fontSize: '0.85rem', 
+                            flex: 2,
+                            ...(job.status === 'completed' && job.mangaId !== 'shibitonokoe' ? { opacity: 0.5, cursor: 'not-allowed', background: '#475569', borderColor: '#475569' } : {})
+                          }}
+                          disabled={job.status !== 'completed' || job.mangaId !== 'shibitonokoe'}
                           onClick={() => onViewChapter(job)}
                         >
-                          📖 เปิดหน้าอ่านมังงะ
+                          {job.mangaId !== 'shibitonokoe' ? '🔒 ล็อก (เฉพาะ Demo)' : '📖 เปิดหน้าอ่านมังงะ'}
                         </button>
                       </div>
                     </div>

@@ -9,26 +9,37 @@ import Leaderboard from './components/Leaderboard';
 // Initialize mock bookmarks and jobs to make the workspace look active from the start
 const INITIAL_BOOKMARKS = [
   {
+    id: 'shibitonokoe',
+    title: 'Shibito no Koe o Kiku ga Yoi',
+    japaneseTitle: '死人の声をきくがよい',
+    description: 'Junpei has the unfortunate ability to see ghosts. Among them is the ghost of his childhood friend, Ryoko...',
+    coverUrl: '/covers/shibitonokoe.jpg',
+    status: 'ongoing',
+    tags: ['Horror', 'Supernatural', 'Mystery']
+  },
+  {
     id: 'b0b721ff-c388-4486-aa0e-ceec0bc4d5f4',
     title: 'Frieren: Beyond Journey\'s End',
-    japaneseTitle: '葬送のフリーレン',
+    japaneseTitle: '葬送ของฟรีเรน',
     description: 'The adventure is over but life goes on for an elf mage who\'s just beginning to learn what life is all about...',
     coverUrl: '/covers/frieren.jpg',
     status: 'ongoing',
     tags: ['Adventure', 'Drama', 'Fantasy']
-  },
-  {
-    id: 'a77742b1-8169-4f21-954f-2c0c5914ab74',
-    title: 'Chainsaw Man',
-    japaneseTitle: 'チェンソーマン',
-    description: 'Denji is a teenage boy living with a Chainsaw Devil named Pochita. Due to the debt his father left behind...',
-    coverUrl: '/covers/chainsaw.jpg',
-    status: 'ongoing',
-    tags: ['Action', 'Comedy', 'Drama']
   }
 ];
 
 const INITIAL_JOBS = [
+  {
+    id: 'shibitonokoe-ch-1',
+    mangaId: 'shibitonokoe',
+    mangaTitle: 'Shibito no Koe o Kiku ga Yoi',
+    coverUrl: '/covers/shibitonokoe.jpg',
+    chapter: '1',
+    chapterTitle: 'The Voice of the Dead',
+    pages: 13,
+    status: 'completed',
+    progress: 100
+  },
   {
     id: 'frieren-ch-1',
     mangaId: 'b0b721ff-c388-4486-aa0e-ceec0bc4d5f4',
@@ -85,7 +96,7 @@ function App() {
       mangaTitle: 'Frieren: Beyond Journey\'s End',
       chapter: '1',
       pageNumber: 1,
-      originalText: '本当に一人で行くのか？',
+      originalText: 'Are you really going alone?',
       currentTranslation: 'เจ้าจะไปคนเดียวจริงๆ หรือ?',
       suggestedTranslation: 'นายจะไปคนเดียวจริงๆ งั้นเหรอ?',
       contributor: 'KuroChan',
@@ -98,7 +109,7 @@ function App() {
       mangaTitle: 'Frieren: Beyond Journey\'s End',
       chapter: '1',
       pageNumber: 2,
-      originalText: '信じられない... 何という魔力だ...',
+      originalText: 'Unbelievable... What an immense magic power...',
       currentTranslation: 'เหลือเชื่อจริงๆ... พลังเวทมนตร์อะไรกันเนี่ย...',
       suggestedTranslation: 'ไม่อยากจะเชื่อเลย... พลังเวทย์อะไรกันขนาดนี้...',
       contributor: 'NekoNeko',
@@ -111,7 +122,7 @@ function App() {
       mangaTitle: 'Frieren: Beyond Journey\'s End',
       chapter: '1',
       pageNumber: 1,
-      originalText: 'ついに、この時が来たか...',
+      originalText: 'Finally, this moment has come...',
       currentTranslation: 'ในที่สุดช่วงเวลานี้ก็มาถึง...',
       suggestedTranslation: 'ในที่สุด ช่วงเวลานี้ก็มาถึงจนได้...',
       contributor: 'MangaThaisTranslator',
@@ -227,6 +238,14 @@ function App() {
 
   // Trigger Download Chapter
   const handleStartDownload = (manga, chapter) => {
+    if (manga.id !== 'shibitonokoe') {
+      alert('ในระบบเวอร์ชันตัวอย่างนี้ สามารถจัดทำคำแปลและอ่านได้เฉพาะมังงะเรื่อง "Shibito no Koe o Kiku ga Yoi" เท่านั้น');
+      return;
+    }
+    if (chapter.chapter !== '1') {
+      alert('ในระบบเวอร์ชันตัวอย่างนี้ สามารถจัดทำคำแปลและอ่านได้เฉพาะตอนแรก (Chapter 1) เท่านั้น');
+      return;
+    }
     const jobExists = downloads.some(job => job.id === chapter.id);
     if (jobExists) return;
 
@@ -258,6 +277,10 @@ function App() {
 
   // Open chapter in Reader
   const handleViewChapter = (job) => {
+    if (job.mangaId !== 'shibitonokoe') {
+      alert('ในระบบเวอร์ชันตัวอย่างนี้ สามารถเข้าอ่านได้เฉพาะมังงะเรื่อง "Shibito no Koe o Kiku ga Yoi" เท่านั้น');
+      return;
+    }
     setActiveReaderJob(job);
     setCurrentView('reader');
   };
@@ -269,7 +292,7 @@ function App() {
   };
 
   // Suggest Translation from Reader
-  const handleSuggestTranslation = (bubble, proposedText) => {
+  const handleSuggestTranslation = (bubble, proposedText, contributorName) => {
     const newSug = {
       id: `sug-${Date.now()}`,
       bubbleId: bubble.id,
@@ -279,7 +302,7 @@ function App() {
       originalText: bubble.original,
       currentTranslation: customTranslations[bubble.id] || bubble.translated,
       suggestedTranslation: proposedText,
-      contributor: user ? user.username : 'Anonymous',
+      contributor: contributorName || (user ? user.username : 'Anonymous'),
       status: 'pending',
       timestamp: new Date().toISOString()
     };
