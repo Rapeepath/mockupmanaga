@@ -1,9 +1,6 @@
-// MangaDex API Utility with Mock Fallbacks
+// MangaDex API Utility with Mock Data and Admin Management
 
-const API_BASE = 'https://api.mangadex.org';
-
-// Real MangaDex covers & details for fallback/recommended mangas
-const MOCK_MANGAS = [
+export let MOCK_MANGAS = [
   {
     id: 'b0b721ff-c388-4486-aa0e-ceec0bc4d5f4',
     title: 'Frieren: Beyond Journey\'s End',
@@ -51,35 +48,53 @@ const MOCK_MANGAS = [
   }
 ];
 
-// Helper to generate mock chapters if API fails
-const generateMockChapters = (mangaId) => {
-  const chapters = [];
-  for (let i = 1; i <= 15; i++) {
-    chapters.push({
-      id: `${mangaId}-ch-${i}`,
-      chapter: i.toString(),
-      title: `Simulated Chapter ${i}: The Beginning of Translation`,
-      pages: Math.floor(Math.random() * 10) + 12,
-      publishAt: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString()
-    });
+// In-memory store for chapters
+export const MOCK_CHAPTERS = {};
+
+export const getMangaChapters = (mangaId) => {
+  if (!MOCK_CHAPTERS[mangaId]) {
+    const chapters = [];
+    for (let i = 1; i <= 6; i++) {
+      chapters.push({
+        id: `${mangaId}-ch-${i}`,
+        chapter: i.toString(),
+        title: `Chapter ${i}: The Journey to the East`,
+        pages: 12 + i,
+        publishAt: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString()
+      });
+    }
+    MOCK_CHAPTERS[mangaId] = chapters;
   }
-  return chapters;
+  return MOCK_CHAPTERS[mangaId];
 };
 
-// Helper: Extract cover art from relationships
-const getCoverUrl = (mangaId, relationships) => {
-  // Try to find if we already have it in MOCK (use local path to bypass hotlink block)
-  const matchedMock = MOCK_MANGAS.find(m => m.id === mangaId);
-  if (matchedMock) return matchedMock.coverUrl;
-
-  const coverObj = relationships.find(r => r.type === 'cover_art');
-  if (coverObj && coverObj.attributes && coverObj.attributes.fileName) {
-    return `https://uploads.mangadex.org/covers/${mangaId}/${coverObj.attributes.fileName}.256.jpg`;
-  }
-  
-  return 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=256&auto=format&fit=crop&q=60'; // Anime illustration placeholder
+// Admin actions
+export const deleteManga = (id) => {
+  MOCK_MANGAS = MOCK_MANGAS.filter(m => m.id !== id);
 };
 
+export const deleteChapter = (mangaId, chapterId) => {
+  const chs = getMangaChapters(mangaId);
+  MOCK_CHAPTERS[mangaId] = chs.filter(c => c.id !== chapterId);
+};
+
+export const addChapter = (mangaId, chapterNum, chapterTitle, pageCount = 16) => {
+  const chs = getMangaChapters(mangaId);
+  const newCh = {
+    id: `${mangaId}-ch-${Date.now()}`,
+    chapter: chapterNum,
+    title: chapterTitle || `Chapter ${chapterNum}: Translating Dialogue`,
+    pages: pageCount,
+    publishAt: new Date().toISOString()
+  };
+  chs.push(newCh);
+  // Sort numerically
+  chs.sort((a, b) => (parseFloat(a.chapter) || 0) - (parseFloat(b.chapter) || 0));
+  MOCK_CHAPTERS[mangaId] = chs;
+  return newCh;
+};
+
+// Public utility functions
 export const fetchRecommendations = async () => {
   return MOCK_MANGAS;
 };
@@ -88,7 +103,6 @@ export const searchManga = async (query) => {
   if (!query || query.trim() === '') {
     return MOCK_MANGAS;
   }
-
   const lowercaseQuery = query.toLowerCase();
   return MOCK_MANGAS.filter(m => 
     m.title.toLowerCase().includes(lowercaseQuery) || 
@@ -98,43 +112,5 @@ export const searchManga = async (query) => {
 };
 
 export const fetchChapters = async (mangaId) => {
-  try {
-    // Translated language: English only
-    const response = await fetch(
-      `${API_BASE}/manga/${mangaId}/feed?translatedLanguage[]=en&limit=100&order[chapter]=asc`,
-      { method: 'GET' }
-    );
-    
-    if (!response.ok) throw new Error('API chapters failed');
-    
-    const result = await response.json();
-    
-    // Group and filter duplicates of the same chapter number to keep the list clean
-    const seenChapters = new Set();
-    const cleanChapters = [];
-    
-    for (const ch of result.data) {
-      const chNum = ch.attributes.chapter || '0';
-      if (!seenChapters.has(chNum)) {
-        seenChapters.add(chNum);
-        cleanChapters.push({
-          id: ch.id,
-          chapter: chNum,
-          title: ch.attributes.title || `Chapter ${chNum}`,
-          pages: ch.attributes.pages || 16,
-          publishAt: ch.attributes.publishAt
-        });
-      }
-    }
-    
-    // Sort chronologically by chapter number (numerical sort)
-    return cleanChapters.sort((a, b) => {
-      const numA = parseFloat(a.chapter) || 0;
-      const numB = parseFloat(b.chapter) || 0;
-      return numA - numB;
-    });
-  } catch (error) {
-    console.warn(`MangaDex fetch chapters failed for ${mangaId}, using mocks:`, error);
-    return generateMockChapters(mangaId);
-  }
+  return getMangaChapters(mangaId);
 };
